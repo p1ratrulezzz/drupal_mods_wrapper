@@ -1,0 +1,11 @@
+{
+    "name": "p1ratrulezzz/drupal_mods_wrapper",
+    "license": "GPL",
+    "authors": [
+        {
+            "name": "P1ratRuleZZZ",
+            "email": "me@p1ratrulezzz.me"
+        }
+    ],
+    "require": {}
+}

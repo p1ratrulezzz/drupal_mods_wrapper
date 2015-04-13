@@ -4,7 +4,7 @@
  * The baddest module of any project. Marvelous! :-)
  */
 
-require_once DRUPAL_MODS_VENDOR. '/autoload.php';
+//require_once DRUPAL_MODS_VENDOR. '/autoload.php';
 require_once DRUPAL_MODS_ENV_DIR. '/include/rules.inc';
 require_once DRUPAL_MODS_ENV_DIR. '/include/drupal_mods.views.inc';
 
