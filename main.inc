@@ -6,25 +6,25 @@
 
 require_once DRUPAL_MODS_VENDOR. '/autoload.php';
 require_once DRUPAL_MODS_ENV_DIR. '/include/rules.inc';
-require_once DRUPAL_MODS_ENV_DIR. '/include/gb_common.views.inc';
+require_once DRUPAL_MODS_ENV_DIR. '/include/drupal_mods.views.inc';
 
 
 /**
  * Implements hook_module_implements_alter()
  */
-function gb_common_module_implements_alter(&$implementations, $hook) {
+function drupal_mods_module_implements_alter(&$implementations, $hook) {
   $sanbox = array(
     'params' => &$implementations,
   );
 
-  gb_common_call_func('main_core', 'hook_implements_alter', $sanbox);
+  drupal_mods_call_func('main_core', 'hook_implements_alter', $sanbox);
 }
 
 /**
  * Implementation of hook_ctools_plugin_directory() to let the system know
  * where all our own plugins are.
  */
-function gb_common_ctools_plugin_directory($owner, $plugin_type) {
+function drupal_mods_ctools_plugin_directory($owner, $plugin_type) {
   if ($owner == 'ctools') {
     return 'plugins/' . $plugin_type;
   }
@@ -32,9 +32,9 @@ function gb_common_ctools_plugin_directory($owner, $plugin_type) {
 
 /**
  * Implements hook_permission()
- * @fixme: use gb_common_call_func
+ * @fixme: use drupal_mods_call_func
  */
-function gb_common_permission() {
+function drupal_mods_permission() {
   $perms = array();
 
   return $perms;
@@ -43,15 +43,15 @@ function gb_common_permission() {
 /**
  * Implements hook_permission()
  */
-function gb_common_init() {
-  gb_common_call_func('main_core', 'hook_init');
+function drupal_mods_init() {
+  drupal_mods_call_func('main_core', 'hook_init');
 }
 
 /**
  * Implements hook_library()
- * @fixme: use gb_common_call_func()
+ * @fixme: use drupal_mods_call_func()
  */
-function gb_common_library() {
+function drupal_mods_library() {
   $libraries = array();
 
   $path = drupal_get_path('module', 'eiski_common');
@@ -96,35 +96,35 @@ function gb_common_library() {
 
 /**
  * Implements hook_form_alter()
- * @fixme: use gb_common_call_func()
+ * @fixme: use drupal_mods_call_func()
  */
-function gb_common_form_alter(&$form, &$form_state, $form_id) {}
+function drupal_mods_form_alter(&$form, &$form_state, $form_id) {}
 
 /**
- * @fixme use gb_common_call_func()
+ * @fixme use drupal_mods_call_func()
  */
-function gb_common_field_widget_form_alter(&$element, &$form_state, &$context) {}
+function drupal_mods_field_widget_form_alter(&$element, &$form_state, &$context) {}
 
 /**
  * Implements hook_theme()
  */
-function gb_common_theme() {
+function drupal_mods_theme() {
   return array();
 }
 
 
 /**
- * @fixme: use gb_common_call_func()
+ * @fixme: use drupal_mods_call_func()
  */
-function gb_common_preprocess_form_element_label(&$variables) {}
+function drupal_mods_preprocess_form_element_label(&$variables) {}
 
 
 
 /**
  * Implementation of hook_menu().
  */
-function gb_common_menu() {
-  return gb_common_call_func('main_core', 'hook_menu');
+function drupal_mods_menu() {
+  return drupal_mods_call_func('main_core', 'hook_menu');
 }
 
 /**
@@ -136,8 +136,8 @@ function gb_common_menu() {
  * @throws Exception
  * @note this function shouldn't be replaced anywhere
  */
-function gb_common_module($module, $silent = FALSE) {
-  $cache = &gb_common_static(__FUNCTION__, array());
+function drupal_mods_module($module, $silent = FALSE) {
+  $cache = &drupal_mods_static(__FUNCTION__, array());
   $cache_key = $module;
   $cached_cwd = NULL;
   if (!isset($cache[$cache_key])) {
@@ -155,7 +155,7 @@ function gb_common_module($module, $silent = FALSE) {
         $trace[] = 'function '. $tr_info['function'];
       }
 
-      $message = "gb_common module named \"{$module}\" was not found in \"{$filepath}\"" . "<br />\r\nTrace:<br />\r\n"
+      $message = "drupal_mods module named \"{$module}\" was not found in \"{$filepath}\"" . "<br />\r\nTrace:<br />\r\n"
         . implode("<br />\r\n", $trace);
 
       drupal_set_message($message);
@@ -180,9 +180,9 @@ function gb_common_module($module, $silent = FALSE) {
  * @return mixed|null
  * @throws Exception
  */
-function &gb_common_call_func($module, $callable, &$sandbox = NULL, $default = array()) {
-  $func = is_array($callable) ? $callable : "gb_common_{$module}_{$callable}";
-  if (gb_common_module($module, TRUE) && is_callable($func)) {
+function &drupal_mods_call_func($module, $callable, &$sandbox = NULL, $default = array()) {
+  $func = is_array($callable) ? $callable : "drupal_mods_{$module}_{$callable}";
+  if (drupal_mods_module($module, TRUE) && is_callable($func)) {
     if (is_array($sandbox) && array_key_exists('params', $sandbox) && is_array($sandbox['params'])) {
       return call_user_func_array($func, $sandbox['params']);
     }
@@ -198,8 +198,8 @@ function &gb_common_call_func($module, $callable, &$sandbox = NULL, $default = a
  * @param $module
  * @return bool
  */
-function gb_common_module_loaded($module) {
-  $cache = &gb_common_static('gb_common_module', array());
+function drupal_mods_module_loaded($module) {
+  $cache = &drupal_mods_static('drupal_mods_module', array());
   $cache_key = $module;
 
   return isset($cache[$cache_key]);
@@ -208,10 +208,10 @@ function gb_common_module_loaded($module) {
 /**
  * Implements hook_page_delivery_callback_alter()
  */
-function gb_common_page_delivery_callback_alter(&$callback) {
+function drupal_mods_page_delivery_callback_alter(&$callback) {
 }
 
-function gb_common_core_user_is_admin($account = NULL) {
+function drupal_mods_core_user_is_admin($account = NULL) {
   //$account = $account === NULL ? $_GET['user'] : $account;
   return user_access('administer', $account);
 }
@@ -219,15 +219,15 @@ function gb_common_core_user_is_admin($account = NULL) {
 /**
  * Implements hook_js_alter().
  */
-function gb_common_js_alter(&$javascript) {}
+function drupal_mods_js_alter(&$javascript) {}
 
 /**
  * Implements hook_views_api().
  */
-function gb_common_views_api() {
+function drupal_mods_views_api() {
   return array(
     'api' => 3,
-    'path' => drupal_get_path('module', 'gb_common') . '/views',
+    'path' => drupal_get_path('module', 'drupal_mods') . '/views',
   );
 }
 
@@ -235,15 +235,15 @@ function gb_common_views_api() {
 // * Implements hook_language_negotiation_info().
 // * @fixme to main_core
 // */
-//function gb_common_language_negotiation_info() {
-//  $file = str_replace(DRUPAL_ROOT . '/', '', gb_common). '/gb_common.language.inc';
+//function drupal_mods_language_negotiation_info() {
+//  $file = str_replace(DRUPAL_ROOT . '/', '', drupal_mods). '/drupal_mods.language.inc';
 //  $providers = array();
 //
 //  $providers['od-common-'. LOCALE_LANGUAGE_NEGOTIATION_URL] = array(
 //    'types' => array(LANGUAGE_TYPE_CONTENT, LANGUAGE_TYPE_INTERFACE, LANGUAGE_TYPE_URL),
 //    'callbacks' => array(
-//      'language' => 'gb_common_language_language_from_session',
-//      'switcher' => 'gb_common_language_switcher_links', // But use url links. Sly move dude :-)
+//      'language' => 'drupal_mods_language_language_from_session',
+//      'switcher' => 'drupal_mods_language_switcher_links', // But use url links. Sly move dude :-)
 //      'url_rewrite' => 'locale_language_url_rewrite_session',
 //    ),
 //    'file' => $file,
@@ -257,9 +257,9 @@ function gb_common_views_api() {
 //}
 
 /**
- * @note Should be enabled if gb_common_language_negotiation_info() is uncommented
+ * @note Should be enabled if drupal_mods_language_negotiation_info() is uncommented
  */
-//function gb_common_language_switcher_links($type, $path) {
+//function drupal_mods_language_switcher_links($type, $path) {
 //  $languages = language_list('enabled');
 //  $links = array();
 //  foreach ($languages[1] as $language) {
@@ -275,7 +275,7 @@ function gb_common_views_api() {
 //  return $links;
 //}
 
-function gb_common_preprocess(&$vars, $hook) {
+function drupal_mods_preprocess(&$vars, $hook) {
   //dpm($hook);
 }
 
@@ -284,29 +284,29 @@ function gb_common_preprocess(&$vars, $hook) {
  * Implements hook_field_extra_fields().
  */
 
-function gb_common_field_extra_fields() {}
+function drupal_mods_field_extra_fields() {}
 
 /**
  * Implements hook_node_view().
- * @fixme: use gb_common_call_func()
+ * @fixme: use drupal_mods_call_func()
  */
-function gb_common_node_view($node, $view_mode, $langcode) {}
+function drupal_mods_node_view($node, $view_mode, $langcode) {}
 
 /**
- * @fixme: use gb_common_call_func()
+ * @fixme: use drupal_mods_call_func()
  */
-function gb_common_preprocess_form_element(&$variables) {}
+function drupal_mods_preprocess_form_element(&$variables) {}
 
 /**
- * @fixme: use gb_common_call_func()
+ * @fixme: use drupal_mods_call_func()
  */
-function gb_common_process_form_element(&$variables) {}
+function drupal_mods_process_form_element(&$variables) {}
 
 /*
- * echo gb_common_plural_form(42, array('арбуз', 'арбуза', 'арбузов'))
+ * echo drupal_mods_plural_form(42, array('арбуз', 'арбуза', 'арбузов'))
  * @fixme: To submodule
  */
-function gb_common_plural_form($n, $forms) {
+function drupal_mods_plural_form($n, $forms) {
   return $n % 10 == 1 && $n % 100 != 11 ? $n . ' ' . $forms[0] : ($n % 10 >= 2 && $n % 10 <= 4 && ($n % 100 < 10 || $n % 100 >= 20) ? $n . ' ' . $forms[1] : $n . ' ' . $forms[2]);
 }
 
@@ -317,7 +317,7 @@ function gb_common_plural_form($n, $forms) {
  *
  * @todo: Make it really smart
  */
-function gb_common_serialize($object) {
+function drupal_mods_serialize($object) {
   return json_encode($object);
 }
 
@@ -328,7 +328,7 @@ function gb_common_serialize($object) {
  * @param bool $reset
  * @return mixed
  */
-function &gb_common_static($name, $default_value = NULL, $reset = FALSE) {
+function &drupal_mods_static($name, $default_value = NULL, $reset = FALSE) {
   static $data = array(), $default = array();
   // First check if dealing with a previously defined static variable.
   if (isset($data[$name]) || array_key_exists($name, $data)) {
@@ -361,7 +361,7 @@ function &gb_common_static($name, $default_value = NULL, $reset = FALSE) {
   return $data;
 }
 
-function gb_common_xautoload(\Drupal\xautoload\Adapter\LocalDirectoryAdapter $adapter) {
+function drupal_mods_xautoload(\Drupal\xautoload\Adapter\LocalDirectoryAdapter $adapter) {
   $adapter->addPear(
     '',
     array(

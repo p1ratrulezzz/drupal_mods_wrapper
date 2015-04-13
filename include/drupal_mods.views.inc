@@ -15,6 +15,6 @@
 /**
  * Implements hook_views_plugins().
  */
-function gb_common_views_plugins() {
-  return gb_common_call_func('main_core', 'hook_views_plugins');
+function drupal_mods_views_plugins() {
+  return drupal_mods_call_func('main_core', 'hook_views_plugins');
 }

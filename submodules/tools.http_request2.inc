@@ -8,7 +8,7 @@
 /**
  * @return HTTP_Request2
  */
-function gb_common_tools_http_request2() {
+function drupal_mods_tools_http_request2() {
   $http = new HTTP_Request2();
   $http->setConfig(array(
     'follow_redirects' => TRUE,

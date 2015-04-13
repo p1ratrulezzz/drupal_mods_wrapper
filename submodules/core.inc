@@ -10,7 +10,7 @@
  * @param bool $delete
  * @return null
  */
-function &gb_common_static_storage($name = NULL, $value = NULL, $delete = FALSE) {
+function &drupal_mods_static_storage($name = NULL, $value = NULL, $delete = FALSE) {
   static $storage = array();
 
   $ret = NULL;
@@ -38,7 +38,7 @@ function &gb_common_static_storage($name = NULL, $value = NULL, $delete = FALSE)
   return $ret;
 }
 
-function gb_common_list_dir($directory, &$raw = NULL) {
+function drupal_mods_list_dir($directory, &$raw = NULL) {
   $fd = opendir($directory);
   if (!$fd) {
     return FALSE;
@@ -63,7 +63,7 @@ function gb_common_list_dir($directory, &$raw = NULL) {
       );
 
       if (is_dir($fullpath)) {
-        $record['children'] = gb_common_list_dir($fullpath, $list['raw'])->list;
+        $record['children'] = drupal_mods_list_dir($fullpath, $list['raw'])->list;
       }
 
       $list['list'][$fullpath] =
@@ -75,7 +75,7 @@ function gb_common_list_dir($directory, &$raw = NULL) {
   return (object) $list;
 }
 
-function gb_common_tmpfilename($directory, $seed = '', $create_file = FALSE, $extension = NULL) {
+function drupal_mods_tmpfilename($directory, $seed = '', $create_file = FALSE, $extension = NULL) {
   $tmp = ($directory . '/' . substr(md5($seed . microtime(TRUE). time() . srand(time())), 0, 8));
   $suffix = ($extension ? '.'. $extension : '');
 
@@ -102,7 +102,7 @@ function gb_common_tmpfilename($directory, $seed = '', $create_file = FALSE, $ex
  * @param bool $remove
  * @return null
  */
-function &_gb_common_param_value_manipulation(&$storage, $param = NULL, $value = NULL, $remove = FALSE) {
+function &_drupal_mods_param_value_manipulation(&$storage, $param = NULL, $value = NULL, $remove = FALSE) {
   $context_rw = &$storage;
   $context = $storage;
   if ($remove) {
@@ -135,7 +135,7 @@ function &_gb_common_param_value_manipulation(&$storage, $param = NULL, $value =
   return $retval;
 }
 
-function gb_common_core_entity_prepare_query($dsn, $fields = array(), $options = array()) {
+function drupal_mods_core_entity_prepare_query($dsn, $fields = array(), $options = array()) {
   list ($entity_type, $bundle) = explode(':', $dsn) + array(NULL, NULL);
   $info = entity_get_info($entity_type);
 
@@ -162,7 +162,7 @@ function gb_common_core_entity_prepare_query($dsn, $fields = array(), $options =
  * @return
  *   TRUE if the user was sucessfully switched, or FALSE if there was an error.
  */
-function gb_common_core_masquerade_switch_user($uid, $mask = TRUE) {
+function drupal_mods_core_masquerade_switch_user($uid, $mask = TRUE) {
   global $user;
   if (!is_numeric($uid)) {
     drupal_set_message(t('A user id was not correctly passed to the switching function.'));
@@ -208,7 +208,7 @@ function gb_common_core_masquerade_switch_user($uid, $mask = TRUE) {
  * @param bool $stderr
  * @return string|null
  */
-function gb_common_core_syscall($command, $stderr = FALSE){
+function drupal_mods_core_syscall($command, $stderr = FALSE){
   $result = '';
   $suffix = $stderr ? "2>&1" : "";
   if ($proc = popen("($command){$suffix}","r")){
@@ -262,7 +262,7 @@ function gb_common_core_syscall($command, $stderr = FALSE){
  * @see drupal_get_destination()
  * @see url()
  */
-function gb_common_core_goto($clean = FALSE, $path = '', array $options = array(), $http_response_code = 302) {
+function drupal_mods_core_goto($clean = FALSE, $path = '', array $options = array(), $http_response_code = 302) {
   // A destination in $_GET always overrides the function arguments.
   // We do not allow absolute URLs to be passed via $_GET, as this can be an attack vector.
   if (!$clean && isset($_GET['destination']) && (!empty($options['allow external']) || !url_is_external($_GET['destination']))) {

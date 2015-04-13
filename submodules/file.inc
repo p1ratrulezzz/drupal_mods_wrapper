@@ -26,7 +26,7 @@
  *
  * @see file_unmanaged_save_data()
  */
-function gb_common_file_save_data_by_path($source, $destination = NULL, $replace = FILE_EXISTS_RENAME, $can_expire = FALSE) {
+function drupal_mods_file_save_data_by_path($source, $destination = NULL, $replace = FILE_EXISTS_RENAME, $can_expire = FALSE) {
   global $user;
 
   if (empty($destination)) {

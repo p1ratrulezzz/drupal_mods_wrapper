@@ -7,14 +7,15 @@
 
 /**
  * Deliver callback.
+ * @author kalistos
  */
-function gb_common_xml_deliver($content) {
+function drupal_mods_xml_deliver($content) {
   // Return default error page.
   if (is_int($content)) {
     drupal_deliver_html_page($content);
   }
 
-  $content = gb_common_xml_encode($content);
+  $content = drupal_mods_xml_encode($content);
   drupal_add_http_header('Content-Type', 'application/xml; charset=utf-8');
   drupal_add_http_header('Content-Length', strlen($content));
   echo $content;
@@ -24,7 +25,7 @@ function gb_common_xml_deliver($content) {
 /**
  * Php variable to xml converter.
  */
-function gb_common_xml_encode($var, $tag = NULL, $depth = 0) {
+function drupal_mods_xml_encode($var, $tag = NULL, $depth = 0) {
   $_myself = __FUNCTION__;
   $content = '';
 

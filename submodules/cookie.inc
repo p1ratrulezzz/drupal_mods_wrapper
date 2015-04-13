@@ -3,9 +3,9 @@
  * @file
  */
 
-function gb_common_setcookie($name, $value = null, $global = FALSE, $options = array()) {
+function drupal_mods_setcookie($name, $value = null, $global = FALSE, $options = array()) {
   // Merge defaults
-  $options += gb_common_cookie_settings();
+  $options += drupal_mods_cookie_settings();
   if ($global) {
     $options['domain'] = $options['auth_cookie_domain'];
   }
@@ -14,8 +14,8 @@ function gb_common_setcookie($name, $value = null, $global = FALSE, $options = a
   return setcookie($name, $value, time() + $options['lifetime'], $options['path'], $options['domain'], $options['secure'], $options['httponly']);
 }
 
-function gb_common_remove_cookie($name, $global = FALSE, $options = array()) {
-  gb_common_setcookie($name, NULL, $global, $options);
+function drupal_mods_remove_cookie($name, $global = FALSE, $options = array()) {
+  drupal_mods_setcookie($name, NULL, $global, $options);
 }
 
 /**
@@ -30,7 +30,7 @@ $conf['cookie_settings'] = array(
 //'httponly' => TRUE, // optional
 );
  */
-function gb_common_cookie_settings($param = NULL) {
+function drupal_mods_cookie_settings($param = NULL) {
   $defaults = array();
 
   // Firstly get cookie configs from settings.php

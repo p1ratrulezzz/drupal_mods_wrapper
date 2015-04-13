@@ -3,7 +3,7 @@
  * @file
  */
 
-function gb_common_rules_action_info() {
+function drupal_mods_rules_action_info() {
   return array(
     'generate_password' => array(
       'label' => t('Generate password'),
@@ -14,7 +14,7 @@ function gb_common_rules_action_info() {
         ),
       ),
       'group' => t('Gosbook'),
-      'base' => 'gb_common_rules_actions_generate_pass',
+      'base' => 'drupal_mods_rules_actions_generate_pass',
       'provides' => array(
         'password_generated' => array(
           'type' => 'text',
@@ -35,9 +35,9 @@ function gb_common_rules_action_info() {
         ),
       ),
       'group' => t('User'),
-      'base' => 'gb_common_rules_actions_set_user_password',
+      'base' => 'drupal_mods_rules_actions_set_user_password',
     ),
-    'gb_common_format_date' => array(
+    'drupal_mods_format_date' => array(
       'label' => t('Format timestamp to appropriate format'),
       'parameter' => array(
         'timestamp' => array(
@@ -47,7 +47,7 @@ function gb_common_rules_action_info() {
         'format' => array(
           'label' => t('Select date format'),
           'type' => 'text',
-          'options list' => '_gb_common_callbacks_date_formats',
+          'options list' => '_drupal_mods_callbacks_date_formats',
         ),
       ),
       'provides' => array(
@@ -57,9 +57,9 @@ function gb_common_rules_action_info() {
         ),
       ),
       'group' => t('Gosbook'),
-      'base' => 'gb_common_rules_actions_gb_common_format_date',
+      'base' => 'drupal_mods_rules_actions_drupal_mods_format_date',
     ),
-    'gb_common_entity_list_get_element_by_index' => array(
+    'drupal_mods_entity_list_get_element_by_index' => array(
       'label' => t('Gets an element from list<node> by index'),
       'parameter' => array(
         'list' => array(
@@ -78,9 +78,9 @@ function gb_common_rules_action_info() {
         ),
       ),
       'group' => t('Gosbook'),
-      'base' => 'gb_common_rules_actions_gb_common_entity_list_get_element_by_index',
+      'base' => 'drupal_mods_rules_actions_drupal_mods_entity_list_get_element_by_index',
     ),
-    'gb_common_add_gcc_role_to_user' => array(
+    'drupal_mods_add_gcc_role_to_user' => array(
       'label' => t('Add GCC role to user'),
       'parameter' => array(
         'group_id' => array(
@@ -97,16 +97,16 @@ function gb_common_rules_action_info() {
         ),
       ),
       'group' => t('Gosbook'),
-      'base' => 'gb_common_add_gcc_role_to_user_action',
+      'base' => 'drupal_mods_add_gcc_role_to_user_action',
     ),
   );
 }
 
-function gb_common_add_gcc_role_to_user_action($group_id, $uid, $rid) {
+function drupal_mods_add_gcc_role_to_user_action($group_id, $uid, $rid) {
   gcc_membership_add_role('node', $group_id, $uid, $rid);
 }
 
-function gb_common_rules_actions_gb_common_entity_list_get_element_by_index($entities, $index) {
+function drupal_mods_rules_actions_drupal_mods_entity_list_get_element_by_index($entities, $index) {
   $ret = array(
     'list_element' => NULL,
   );
@@ -118,7 +118,7 @@ function gb_common_rules_actions_gb_common_entity_list_get_element_by_index($ent
   return $ret;
 }
 
-function _gb_common_callbacks_date_formats() {
+function _drupal_mods_callbacks_date_formats() {
   module_load_include('admin.inc', 'system');
   $formats_trash = system_date_time_settings();
 
@@ -130,18 +130,18 @@ function _gb_common_callbacks_date_formats() {
   return $options;
 }
 
-function gb_common_rules_actions_gb_common_format_date($timestamp, $format_name) {
+function drupal_mods_rules_actions_drupal_mods_format_date($timestamp, $format_name) {
   return array('date_formated' => format_date($timestamp, str_replace('date_format_', '', $format_name)));
 }
 
-function gb_common_rules_actions_generate_pass($length = 10) {
+function drupal_mods_rules_actions_generate_pass($length = 10) {
   $info = array();
   $info['password_generated'] = user_password($length);
 
   return $info;
 }
 
-function gb_common_rules_actions_set_user_password($account, $password) {
+function drupal_mods_rules_actions_set_user_password($account, $password) {
   $edit = array(
     'pass' => $password,
   );

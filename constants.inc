@@ -3,9 +3,9 @@
  * Defines constants
  */
 /**
- * Path to vendor/gb_common
+ * Path to vendor/drupal_mods
  */
-define('DRUPAL_MODS_ENV_DIR', DRUPAL_MODS_VENDOR. 'p1ratrulezzz/drupal_mods');
+define('DRUPAL_MODS_ENV_DIR', DRUPAL_MODS_VENDOR. '/p1ratrulezzz/drupal_mods_wrapper');
 
 /**
  * Submodules directory

@@ -12,7 +12,7 @@
  * @return
  *   A valid language code on success, FALSE otherwise.
  */
-function gb_common_language_language_from_session($languages) {
+function drupal_mods_language_language_from_session($languages) {
   $param = variable_get('locale_language_negotiation_session_param', 'language');
 
   // Request parameter: we need to update the session parameter only if we have
