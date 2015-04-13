@@ -7,5 +7,7 @@
             "email": "me@p1ratrulezzz.me"
         }
     ],
-    "require": {}
+    "require": {
+      "php": ">=5.4"
+    }
 }
