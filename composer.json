@@ -4,10 +4,10 @@
     "authors": [
         {
             "name": "P1ratRuleZZZ",
-            "email": "me@p1ratrulezzz.me"
+            "email": "webmaster@p1ratrulezzz.me"
         }
     ],
     "require": {
-      "php": ">=5.4"
+      "php": ">=5.3"
     }
 }
