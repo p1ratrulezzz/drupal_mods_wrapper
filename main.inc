@@ -135,8 +135,22 @@ function drupal_mods_menu() {
  * @return mixed
  * @throws Exception
  * @note this function shouldn't be replaced anywhere
+ * @deprecated
  */
 function drupal_mods_module($module, $silent = FALSE) {
+  return drupal_mods_load($module, $silent);
+}
+
+/**
+ * Loads module from submodules directory
+ * @param $module
+ * @param $silent (optional)
+ *  Set to TRUE if it's needed to prevent throwing an exception. Defaults to FALSE.
+ * @return mixed
+ * @throws Exception
+ * @note this function shouldn't be replaced anywhere
+ */
+function drupal_mods_load($module, $silent = FALSE) {
   $cache = &drupal_mods_static(__FUNCTION__, array());
   $cache_key = $module;
   $cached_cwd = NULL;
