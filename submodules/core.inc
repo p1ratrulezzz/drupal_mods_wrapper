@@ -286,3 +286,30 @@ function drupal_mods_core_goto($clean = FALSE, $path = '', array $options = arra
   // drupal_goto() call gets executed upon redirection.
   drupal_exit($url);
 }
+
+/**
+ * Delivers an "access denied" error to the browser.
+ *
+ * Page callback functions wanting to report an "access denied" message should
+ * return MENU_ACCESS_DENIED instead of calling drupal_access_denied(). However,
+ * functions that are invoked in contexts where that return value might not
+ * bubble up to menu_execute_active_handler() should call
+ * drupal_access_denied().
+ * @param $force (optional)
+ *  If set to TRUE will redirect to Access Denied page even if was already called once
+ */
+function drupal_mods_core_access_denied($force = FALSE) {
+  $called = &drupal_static(__FUNCTION__, FALSE);
+  $headers = drupal_static('drupal_http_headers', array());
+  static $statuses = array(
+    '403 Forbidden' => TRUE,
+  );
+
+  if (!$force && ($called || (isset($headers['status']) && isset($statuses[$headers['status']])))) {
+    return FALSE;
+  }
+
+  // Set recursion protection
+  $called = TRUE;
+  drupal_access_denied();
+}
