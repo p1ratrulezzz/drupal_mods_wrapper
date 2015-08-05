@@ -195,13 +195,16 @@ function drupal_mods_load($module, $silent = FALSE) {
  * @throws Exception
  */
 function &drupal_mods_call_func($module, $callable, &$sandbox = NULL, $default = array()) {
+  $ret = array();
   $func = is_array($callable) ? $callable : "drupal_mods_{$module}_{$callable}";
-  if (drupal_mods_module($module, TRUE) && is_callable($func)) {
+  if (drupal_mods_load($module, TRUE) && is_callable($func)) {
     if (is_array($sandbox) && array_key_exists('params', $sandbox) && is_array($sandbox['params'])) {
-      return call_user_func_array($func, $sandbox['params']);
+      $ret = call_user_func_array($func, $sandbox['params']);
+      return $ret;
     }
     else {
-      return call_user_func($func);
+      $ret = call_user_func($func);
+      return $ret;
     }
   }
 
