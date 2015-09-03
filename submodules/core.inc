@@ -38,36 +38,54 @@ function &drupal_mods_static_storage($name = NULL, $value = NULL, $delete = FALS
   return $ret;
 }
 
+/**
+ * Gets directory listing for directory
+ * @param $directory
+ *  A path to directory to read it's file list
+ * @param null $raw
+ *  Keep empty. Used for recursion only.
+ * @return object
+ *  An object containing two parameters:
+ *    raw: contains raw flat list of ALL files from ALL directories under passed directory
+ *      $directory/some_sub_dir/somefile: object
+ *      $directory/somefile.txt: object
+ *    list
+ *      $directory/some_sub_dir: object
+ *      $directory/somefile.txt: object
+ *
+ * each object contais all parameters returned by @see pathinfo()
+ */
 function drupal_mods_list_dir($directory, &$raw = NULL) {
+  $raw = $raw === NULL ? array() : $raw;
   $fd = opendir($directory);
   if (!$fd) {
     return FALSE;
   }
 
   $list = array(
-    'raw' => array(),
+    'raw' => &$raw,
     'list' => array(),
   );
-
-  if ($raw) {
-    $list['raw'] = &$raw;
-  }
 
   while ($file = readdir($fd)) {
     if ($file != '.' && $file != '..') {
       $fullpath = rtrim($directory, '/\\') . '/' . $file;
       $record = pathinfo($fullpath) + array(
+        'type' => 'file', // Count it as regular file while we don't know if it is directory or not
         'uri' => $fullpath,
         'filename' => $file,
         'parent' => $directory,
+        'empty' => FALSE, // Count that this is not empty. This is relevant only for directories
       );
 
       if (is_dir($fullpath)) {
+        $record['type'] = 'directory';
         $record['children'] = drupal_mods_list_dir($fullpath, $list['raw'])->list;
+        $record['empty'] = empty($record['children']);
       }
 
-      $list['list'][$fullpath] =
-        $list['raw'][$fullpath] = $record;
+      $list['raw'][$fullpath] = $record;
+      $list['list'][$fullpath] = $list['raw'][$fullpath];
     }
   }
 

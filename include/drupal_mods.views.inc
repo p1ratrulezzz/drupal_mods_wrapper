@@ -16,5 +16,5 @@
  * Implements hook_views_plugins().
  */
 function drupal_mods_views_plugins() {
-  return drupal_mods_call_func('main_core', 'hook_views_plugins');
+
 }

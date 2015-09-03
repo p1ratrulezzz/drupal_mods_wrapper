@@ -3,6 +3,9 @@
  * @file
  */
 
+/**
+ * Implements hook_rules_action_info()
+ */
 function drupal_mods_rules_action_info() {
   return array(
     'generate_password' => array(
@@ -13,7 +16,7 @@ function drupal_mods_rules_action_info() {
           'label' => t('Length'),
         ),
       ),
-      'group' => t('Gosbook'),
+      'group' => t('Drupal mods'),
       'base' => 'drupal_mods_rules_actions_generate_pass',
       'provides' => array(
         'password_generated' => array(
@@ -56,7 +59,7 @@ function drupal_mods_rules_action_info() {
           'label' => t('Formated date string'),
         ),
       ),
-      'group' => t('Gosbook'),
+      'group' => t('Drupal mods'),
       'base' => 'drupal_mods_rules_actions_drupal_mods_format_date',
     ),
     'drupal_mods_entity_list_get_element_by_index' => array(
@@ -77,7 +80,7 @@ function drupal_mods_rules_action_info() {
           'label' => t('List element'),
         ),
       ),
-      'group' => t('Gosbook'),
+      'group' => t('Drupal mods'),
       'base' => 'drupal_mods_rules_actions_drupal_mods_entity_list_get_element_by_index',
     ),
     'drupal_mods_add_gcc_role_to_user' => array(
@@ -96,7 +99,7 @@ function drupal_mods_rules_action_info() {
           'label' => t('Role id'),
         ),
       ),
-      'group' => t('Gosbook'),
+      'group' => t('Drupal mods'),
       'base' => 'drupal_mods_add_gcc_role_to_user_action',
     ),
   );

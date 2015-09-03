@@ -13,7 +13,7 @@
 function drupal_mods_user_memberships($uid, $options = array()) {
   // Apply defaults
   $options += array(
-    'option' => 'test',
+    // 'option' => 'test', // Some default setting
   );
 
   $memberships = gcc_membership_get_user_memberships($uid);
@@ -42,7 +42,7 @@ function drupal_mods_config($param = NULL) {
   if ($la === NULL) {
     global $conf;
     $storage = $conf;
-    drupal_mods_module('lazyaccess.class');
+    drupal_mods_load('lazyaccess.class');
     $la = new LazyAccessTyped($storage);
   }
 
