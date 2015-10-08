@@ -320,7 +320,7 @@ function drupal_mods_preprocess_form_element(&$variables) {}
 function drupal_mods_process_form_element(&$variables) {}
 
 /*
- * echo drupal_mods_plural_form(42, array('арбуз', 'арбуза', 'арбузов'))
+ * echo drupal_mods_plural_form(42, array('apple', 'apples', 'of apples'))
  * @fixme: To submodule
  */
 function drupal_mods_plural_form($n, $forms) {
